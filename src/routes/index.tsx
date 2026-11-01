@@ -14,12 +14,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Portafolio de Ospina Casa Museo: arquitectura, arte, memoria y naturaleza en el barrio Palermo de Sincelejo, Sucre.",
+          "Portafolio de Ospina Casa Museo: arquitectura, arte, memoria y naturaleza en el barrio Palermo de Sincelejo, con laboratorios de creación y residencia artística.",
       },
       { property: "og:title", content: "Ospina Casa Museo · Sincelejo" },
       {
         property: "og:description",
-        content: "Una casa donde los objetos cuentan historias. Arte, memoria y naturaleza en Sincelejo.",
+        content:
+          "Una casa donde los objetos cuentan historias. Arte, memoria, naturaleza, laboratorios de creación y residencia artística en Sincelejo.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -43,6 +44,44 @@ const pilares = [
   { t: "Naturaleza", c: "bg-lime text-foreground" },
 ];
 
+type Programa = {
+  n: string;
+  t: string;
+  d: string;
+  tags: string[];
+  span: string;
+  img?: string;
+  alt?: string;
+};
+
+const programas: Programa[] = [
+  {
+    n: "L",
+    t: "Laboratorio de arte y creación",
+    d: "Un ciclo de trabajo abierto donde el ensamblaje, la reutilización de materiales y la experimentación se vuelven método: probar, equivocarse y volver a empezar con lo que la casa ya tiene.",
+    tags: ["Ensamblaje", "Materiales reutilizados", "Experimentación"],
+    img: escultura.url,
+    alt: "Escultura ensamblada con hojas y materiales reutilizados",
+    span: "md:col-span-7 md:row-span-2",
+  },
+  {
+    n: "H",
+    t: "Hibridaciones",
+    d: "Cruces entre disciplinas: arquitectura, música, escrita, imagen y memoria doméstica trabajando sobre un mismo conjunto de objetos.",
+    tags: ["Cruce de disciplinas", "Co-creación"],
+    span: "md:col-span-5",
+  },
+  {
+    n: "R",
+    t: "Residencia artística",
+    d: "Días de estancia para artistas que quieran crear desde el lugar: habitar la casa, recorrer sus ambientes y dejar una obra que se sume a su historia.",
+    tags: ["Estancia", "Obra in situ"],
+    img: casaArbol.url,
+    alt: "Estructura construida entre los árboles del patio",
+    span: "md:col-span-5",
+  },
+];
+
 function Index() {
   return (
     <main className="font-sans bg-background text-foreground">
@@ -55,6 +94,7 @@ function Index() {
           <div className="hidden gap-8 text-sm md:flex">
             <a href="#casa" className="hover:text-primary">La casa</a>
             <a href="#ambientes" className="hover:text-primary">Ambientes</a>
+            <a href="#laboratorios" className="hover:text-primary">Laboratorios</a>
             <a href="#galeria" className="hover:text-primary">Galería</a>
             <a href="#visita" className="hover:text-primary">Visítanos</a>
           </div>
@@ -135,6 +175,68 @@ function Index() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Laboratorios */}
+      <section id="laboratorios" className="bg-primary text-primary-foreground">
+        <div className="tile-border h-3 w-full" />
+        <div className="mx-auto max-w-7xl px-6 py-28">
+          <div className="grid gap-10 md:grid-cols-[1fr_1.05fr] md:items-end">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-primary-foreground/70">Programas</p>
+              <h2 className="mt-4 font-display text-5xl font-black leading-[0.95] md:text-6xl">
+                La casa también se <span className="italic font-normal text-secondary">hace</span>
+              </h2>
+            </div>
+            <p className="max-w-xl text-lg text-primary-foreground/80 md:pb-3">
+              Además de recorrerse, Ospina Casa Museo se habita. Laboratorios de arte y creación,
+              hibridaciones entre disciplinas y estancias de residencia artística convierten los
+              ambientes en un taller vivo: las obras nuevas nacen de los objetos que ya existen.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-4 md:grid-cols-12">
+            {programas.map((p) => (
+              <article
+                key={p.t}
+                className={`flex flex-col border border-primary-foreground/25 bg-primary-foreground/10 p-8 md:p-10 ${p.span}`}
+              >
+                {p.img && (
+                  <img
+                    src={p.img}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="mb-8 aspect-[16/9] w-full object-cover"
+                  />
+                )}
+                <span className="inline-flex h-12 w-12 items-center justify-center bg-secondary font-display text-2xl font-black text-secondary-foreground">
+                  {p.n}
+                </span>
+                <h3 className="mt-6 font-display text-3xl font-black leading-tight">{p.t}</h3>
+                <p className="mt-4 text-lg text-primary-foreground/80">{p.d}</p>
+                <ul className="mt-auto flex flex-wrap gap-2 pt-8">
+                  {p.tags.map((t) => (
+                    <li key={t} className="border border-primary-foreground/30 px-3 py-1 text-sm">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-14 flex flex-wrap items-center justify-between gap-6 border-t border-primary-foreground/25 pt-8">
+            <p className="max-w-xl text-lg text-primary-foreground/80">
+              ¿Tienes un proyecto que quiera nacer en la casa? Escríbenos y lo conversamos.
+            </p>
+            <a
+              href="#visita"
+              className="rounded-sm bg-secondary px-7 py-4 font-semibold text-secondary-foreground transition hover:bg-primary-foreground hover:text-primary"
+            >
+              Conversemos
+            </a>
           </div>
         </div>
       </section>
